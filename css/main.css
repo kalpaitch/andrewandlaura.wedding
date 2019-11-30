@@ -1,0 +1,75 @@
+/*body {*/
+/*    background-color: #fff;*/
+/*    background-image: url("../img/la_tree.png");*/
+/*    background-position: right top;*/
+/*    background-repeat: no-repeat;*/
+/*    background-size: 40%;*/
+/*}*/
+
+/*.wrapper {*/
+/*    min-height: 100%;*/
+/*    display: grid;*/
+/*    grid-template-rows: auto 1fr auto;*/
+/*}*/
+
+#main {
+    font-family: mr-eaves-modern, sans-serif;
+    font-style: normal;
+    font-weight: 100;
+}
+
+.amp-space {
+    line-height: 1em;
+    margin-bottom: 0em;
+}
+
+#main .container {
+    min-height: 100%;
+}
+
+#menu {
+    background-color: rgba(248, 249, 250, 0.7);
+    box-shadow: 2px 5px 2px 1px rgba(248, 249, 250, 0.7);
+}
+
+#schedule {
+    width: 50%;
+}
+
+#upper_left {
+    width: 345px; height: 585px;
+    position: absolute;
+    z-index: -1;
+    top: 55px; left: 0;
+    background-image: url("../img/la_wave_tl.png");
+    background-repeat: no-repeat;
+}
+
+#upper_right {
+    width: 324px; height: 570px;
+    position: absolute;
+    z-index: -1;
+    top: 55px;
+    right: 0%;
+    background-image: url("../img/la_wave_tr.png");
+    background-repeat: no-repeat;
+}
+
+#lower_left {
+    width: 416px; height: 452px;
+    position: absolute;
+    z-index: -1;
+    bottom: 0%; left: 0;
+    background-image: url("../img/la_wave_bl.png");
+    background-repeat: no-repeat;
+}
+
+#lower_right {
+    width: 488px; height: 447px;
+    bottom: 0%;
+    right: 0%;
+    position: absolute;
+    z-index: -1;
+    background-image: url("../img/la_wave_br.png");
+    background-repeat: no-repeat;
+}
