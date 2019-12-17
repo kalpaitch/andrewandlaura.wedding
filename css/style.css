@@ -21,7 +21,11 @@ h1 {
 }
 
 #rsvp label {
-  font-size: 1.333em;
+  font-size: 1.333rem !important;
+}
+#map {
+  max-width: 100%;
+  width: 100%;
 }
 
 nav ul a,

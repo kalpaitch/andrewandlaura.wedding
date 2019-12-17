@@ -55,6 +55,7 @@
     </div>
   </div>
 
+
   <div id="venue" class="container">
     <div class="section">
 
@@ -69,7 +70,7 @@
   </div>
 
 
-  <div class="parallax-container valign-wrapper">
+  <div id="map" class="container">
     <div class="section no-pad-bot">
       <iframe width="100%" height="450px" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJnfoSY6wPdkgR69kRGIFCCUU&key=AIzaSyAy_shMNDiIqdAeqla-zeqYILofGj_snC4&zoom=14" allowfullscreen></iframe>
     </div>
@@ -188,30 +189,44 @@
           <h4 class="center blue-grey-text">RSVP</h4>
 
           <div class="row">
-            <form action="mailto:laura+andrew@kalpaitch.com" method="GET" class="col s12">
+            <form id="rsvp-form" action="mailto:laura+andrew@kalpaitch.com" method="GET" class="col s12">
               <div class="row">
                 <div class="input-field col s6">
-                  <input id="field-name" type="text" class="validate">
+                  <input id="field-name" name="name" type="text" required class="validate">
                   <label for="field-name">Name</label>
                 </div>
                 <div class="input-field col s6">
-                  <input id="field-email" type="email" class="validate">
+                  <input id="field-email" name="email" type="email" required class="validate">
                   <label for="field-email">Email</label>
                 </div>
               </div>
 
-<!--              <div class="row">-->
-<!--                <div class="input-field col s12">-->
-<!--                  <input id="field-dietary" type="text" class="validate">-->
-<!--                  <label for="field-dietary">Dietary requirements</label>-->
-<!--                </div>-->
-<!--              </div>-->
               <div class="row">
-                <div class="input-field col s12">
-                  <textarea id="field-comments" class="materialize-textarea"></textarea>
-                  <label for="field-comments">Response</label>
+                <div class="input-field col l4 s12">
+                  <input id="field-guests" name="guests" type="text" required class="validate">
+                  <label for="field-guests">Number of guests</label>
+                </div>
+                <div class="input-field col l4 m6 s12">
+                  <input id="field-dietary" name="dietary" type="text" class="validate">
+                  <label for="field-dietary">
+                    <span class="lever">Dietary requirements</span>
+                  </label>
+                </div>
+                <div class="input-field col l4 m6 s12">
+                  <input id="field-seating" name="seating" type="text" class="validate">
+                  <label for="field-seating">Seating</label>
                 </div>
               </div>
+
+              <div class="row">
+                <div class="input-field col s12">
+                  <textarea id="field-comments" name="message" class="materialize-textarea"></textarea>
+                  <label for="field-comments">Additional comments</label>
+                </div>
+              </div>
+
+
+
               <div class="row">
                 <div class="input-field col s12">
                   <button id="form-submit" class="btn waves-effect waves-light" type="submit" name="action">Respond
@@ -266,12 +281,67 @@
     </div>
   </footer>
 
+  <!-- Modal Structure -->
+  <div id="submission-success" class="modal">
+    <div class="modal-content">
+      <h4>Response sent</h4>
+      <p>Thanks for responding, we've got your message.</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Done</a>
+    </div>
+  </div>
+  <div id="submission-failure" class="modal">
+    <div class="modal-content">
+      <h4>Error</h4>
+      <p>Something went wrong. Please email us at <a href="mailto:laura+andrew@kalpaitch.com">laura+andrew@kalpaitch.com</a>.</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Done</a>
+    </div>
+  </div>
+
 
   <!--  Scripts-->
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="https://smtpjs.com/v3/smtp.js"></script>
   <script src="js/materialize.js"></script>
   <script src="js/init.js"></script>
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2.3.2/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (function(){
+      emailjs.init("user_5Eysb5tPulaug42znpqjz");
+    })();
+  </script>
+  <script>
+    window.onload = function() {
+      document.getElementById('rsvp-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        var button = document.getElementById("form-submit");
+        button.classList.add("disabled");
+
+        // generate the contact number value
+        emailjs.sendForm('amazon_ses', 'template_0vBmZa44', this)
+          .then(function(response) {
+            console.log('SUCCESS!', response.status, response.text);
+            button.classList.remove("disabled");
+
+            const modal = document.getElementById('submission-success');
+            const instance = M.Modal.init(modal, {dismissible: true});
+            instance.open();
+          }, function(error) {
+            console.log('FAILED...', error);
+            button.classList.remove("disabled");
+
+            const modal = document.getElementById('submission-failure');
+            const instance = M.Modal.init(modal, {dismissible: true});
+            instance.open();
+          });
+      });
+    }
+  </script>
 
   </body>
 </html>
